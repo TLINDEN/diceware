@@ -3,7 +3,7 @@ A diceware password generator
 
 # build
 
-gcc dice.c -o diec
+gcc dice.c -o dice
 
 # use
 
