@@ -7,11 +7,11 @@ This is the README file for the password generator dicepwgen.
 You can read the documentation without installing the
 software:
 
-    perldoc udpxd.pod
+    perldoc dicepwgen.pod
 
 If it is already installed, you can read the manual page:
 
-    man udpxd
+    man dicepwgen
 
 ## Installation
 
@@ -55,7 +55,7 @@ Options:
 
 ## Getting help
 
-Although I'm happy to hear from udpxd users in private email,
+Although I'm happy to hear from dicepwgen users in private email,
 that's the best way for me to forget to do something.
 
 In order to report a bug, unexpected behavior, feature requests
