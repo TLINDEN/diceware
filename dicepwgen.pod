@@ -1,0 +1,61 @@
+=head1 NAME
+
+dicepwgen - A diceware password generator
+
+=head1 SYNOPSIS
+
+ Usage: dice [-cfvh]
+ Options: 
+ -t --humantoss            Asks interactively for tossed dices
+ -c --wordcount <count>    Number of words (default: 4)
+ -f --dictfile <dictfile>  Dictionary file to use (default:
+                           /usr/share/dict/american-english)
+ -l --minlen <count>       Minimum word len (default: 5)
+ -m --maxlen <count>       Maximum word len (default: 10)
+ -v --version              Print program version
+ -h -? --help              Print this help screen
+
+=head1 DESCRIPTION
+
+dicepwgen generates a diceware password using a dictionary
+file. By default it uses pseudo random dice tosses, but
+it is also possible to use real dices and enter the numbers
+by using the option B<-t>.
+
+The option B<-c> can be used to tweak the number of words
+to output. The options B<-l> and B<-m> can be used to tweak
+minimum and maximum word length.
+
+You can tell dicepwgen to use another dictionary file with
+the option B<-f>.
+
+The program only uses words which contain 7bit ASCII letters
+(a-zA-Z), which are easier for password usage anyway.
+
+=head1 FILES
+
+B</usr/share/dict/american-english>: default dictionary file.
+
+=head1 SEE ALSO
+
+L<http://world.std.com/~reinhold/diceware.html>
+
+L<https://xkcd.com/936/>.
+
+=head1 BUGS
+
+In order to report a bug, unexpected behavior, feature requests
+or to submit a patch, please open an issue on github:
+L<https://github.com/TLINDEN/diceware/issues>.
+
+=head1 LICENSE
+
+This software is licensed under the GNU GENERAL PUBLIC LICENSE version 3.
+
+Copyright (c) 2015 by T. v. Dein.
+
+=head1 AUTHORS
+
+T.v.Dein B<tom AT vondein DOT org>
+
+=cut
