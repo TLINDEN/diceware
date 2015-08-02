@@ -30,11 +30,13 @@
 #include <ctype.h>
 
 #include "tossing.h"
+#include "debug.h"
 
 extern int WMIN;
 extern int WMAX;
 
 int *incr_dicedigit(int *digits);
+int get_dicenum(int *digits);
 char **fetch_dict(char *dictfile);
 
 #endif

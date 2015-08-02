@@ -24,14 +24,15 @@
 int usage() {
   fprintf(stderr,
 	  "Generate a random diceware passphrase\n"
-	  "Usage: dice [-tcfvh]\n"
+	  "Usage: dice [-tcfvhd]\n"
 	  "Options: \n"
-	  "-t --humantoss            Asks interactively for tossed dices\n"
+	  "-t --humantoss            Asks interactively for rolled dices\n"
 	  "-c --wordcount <count>    Number of words (default: 4)\n"
 	  "-f --dictfile <dictfile>  Dictionary file to use (default:\n"
 	  "                          /usr/share/dict/american-english)\n"
 	  "-l --minlen <count>       Minimum word len (default: 5)\n"
 	  "-m --maxlen <count>       Maximum word len (default: 10)\n"
+	  "-d --debug                Enable debug output\n"
 	  "-v --version              Print program version\n"
 	  "-h -? --help              Print this help screen\n"
 	  );
@@ -41,12 +42,12 @@ int usage() {
 int main (int argc, char **argv)  {
   int count = 4;
   char *dictfile = NULL;
-  unsigned char *tosses = NULL;
   int opt;
 
   WMIN = 6;
   WMAX = 10;
   humantoss = 0;
+  verbose = 0;
   
   static struct option longopts[] = {
     { "wordcount", required_argument, NULL,           'c' },
@@ -56,9 +57,10 @@ int main (int argc, char **argv)  {
     { "dictfile",  required_argument, NULL,           'f' },
     { "version",   no_argument,       NULL,           'v' },
     { "help",      no_argument,       NULL,           'h' },
+    { "debug",     no_argument,       NULL,           'd' },
   };
 
-   while ((opt = getopt_long(argc, argv, "l:m:tf:c:vh?", longopts, NULL)) != -1) {
+   while ((opt = getopt_long(argc, argv, "l:m:tf:c:vh?d", longopts, NULL)) != -1) {
      switch (opt) {
      case 'v':
        fprintf(stderr, "This is %s version %s\n", argv[0], VERSION);
@@ -80,6 +82,9 @@ int main (int argc, char **argv)  {
      case 't':
        humantoss = 1;
        break;
+     case 'd':
+       verbose++;
+       break;
      case 'f':
        dictfile = malloc(strlen(optarg));
        strncpy(dictfile, optarg, strlen(optarg));
@@ -90,10 +95,17 @@ int main (int argc, char **argv)  {
      }
    }
 
-
    if(dictfile == NULL) {
-     dictfile = DICTFILE;
+     dictfile =  STRINGIZE_VALUE_OF(DICTFILE);
    }
+
+   debug("     using dictfile: %s", dictfile);
+   debug("minimum word length: %d", WMIN);
+   debug("maximum word length: %d", WMAX);
+   if(humantoss)
+     debug("user rolls dices");
+   else
+     debug("program rolls dices");
    
    getwords(dictfile, count);
 
@@ -115,7 +127,7 @@ void getwords(char *dictfile, int count) {
   tossed = malloc(count * sizeof(int));
   
   for(i=0; i<count; i++) {
-    tosses = toss(5);
+    tosses = toss(5, i);
 
     one    = tosses[0] * 10000;
     two    = tosses[1] *  1000;

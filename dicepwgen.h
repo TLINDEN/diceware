@@ -32,12 +32,16 @@
 
 #include "dictfile.h"
 #include "tossing.h"
+#include "debug.h"
 
-#define  DICTFILE "/usr/share/dict/american-english"
+#define STRINGIZE(x) #x
+#define STRINGIZE_VALUE_OF(x) STRINGIZE(x)
+
 #define  VERSION  "1.0"
 #define  RLEN     1024
 
 int humantoss;
+int verbose;
 int WMIN;
 int WMAX;
 

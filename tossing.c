@@ -21,7 +21,7 @@
 
 #include "tossing.h"
 
-unsigned char *toss(int count) {
+unsigned char *toss(int count, int dicenum) {
   /*
     toss <count> dices. if the global humandice is enabled (option -t),
     then ask the human to toss dices and enter the numbers interactively.
@@ -43,23 +43,28 @@ unsigned char *toss(int count) {
     digit[1] = '\0';
    
   RETRY:
-    fprintf(stderr, "enter 5 digits, each between 1-6\n");
+    fprintf(stdout, "dice %d - enter 5 digits, each between 1-6: ", dicenum+1);
     linelen = getline(&line, &len, stdin);
     tosses = malloc((size_t)count);
     
-    if(linelen < 6) /* 5 digits max allowed */
+    if(linelen < 6) {
+      fprintf(stderr, "error: please enter 5 digits!\n");
       goto RETRY;
-
-    for(i=0; i<count; i++) { /* only digits allowed */
-      if(isdigit(line[i]) == 0)
+    }
+    
+    for(i=0; i<count; i++) {
+      if(isdigit(line[i]) == 0) {
+	fprintf(stderr, "error: please enter only digits!\n");
 	goto RETRY;
-
+      }
+      
       digit[0] = line[i];
       onedice = atoi(digit);
 
-      if (onedice < 1 || onedice > 6) /* no dice digit */
+      if (onedice < 1 || onedice > 6) {
+	fprintf(stderr, "error: please enter only digits between 1 and 6!\n");
 	goto RETRY;
-
+      }
       tosses[i] = onedice;
     }
     free(line);
@@ -67,11 +72,15 @@ unsigned char *toss(int count) {
   else {
     rand = malloc(RLEN);
  
-    if((RAND = fopen("/dev/urandom", "rb")) == NULL)
+    if((RAND = fopen("/dev/urandom", "rb")) == NULL) {
       perror("Could not open /dev/urandom");
+      exit(1);
+    }
 
-    if(fread(rand, RLEN, 1, RAND) != 1)
+    if(fread(rand, RLEN, 1, RAND) != 1) {
       perror("Could not read from /dev/urandom");
+      exit(1);
+    }
     
     fclose(RAND);
 
@@ -90,7 +99,10 @@ unsigned char *toss(int count) {
     }
     free(rand);
   }
- 
+
+  debug("random rolled dices: %d %d %d %d %d",
+	tosses[0], tosses[1], tosses[2], tosses[3], tosses[4]);
+
   return tosses;
 }
 
@@ -110,15 +122,3 @@ int rand_lim(int limit) {
 }
 
 
-
-int get_dicenum(int *digits) {
-  /*
-    get the actual number of an array of dice digits
-  */
-  int i = 0;
-  int pos = 0;
-  for(i=0; i<5; i++)
-    pos += digits[i];
-
-  return pos;
-}

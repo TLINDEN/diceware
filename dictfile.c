@@ -51,6 +51,19 @@ int *incr_dicedigit(int *digits) {
   return digits;
 }
 
+
+int get_dicenum(int *digits) {
+  /*
+    get the actual number of an array of dice digits
+  */
+  int i = 0;
+  int pos = 0;
+  for(i=0; i<5; i++)
+    pos += digits[i];
+
+  return pos;
+}
+
 char **fetch_dict(char *dictfile) {
   /*
     read in the dictionary file. we generate an array of max
@@ -70,6 +83,7 @@ char **fetch_dict(char *dictfile) {
 
   if((DICT = fopen(dictfile, "rb")) == NULL) {
     perror("Could not open dictfile");
+    exit(1);
   }
 
   words = malloc(66666 * sizeof(char *));
@@ -115,7 +129,8 @@ char **fetch_dict(char *dictfile) {
       
       words[pos] = malloc(linelen);
       strncpy( words[pos], line, linelen);
-      //fprintf(stdout, "%d: %s\n", pos, line);
+      if(verbose > 1)
+	debug("add to wordlist at index %d: %s", pos, line);
       
       digits = incr_dicedigit(digits);
       pos = get_dicenum(digits);

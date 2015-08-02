@@ -29,14 +29,15 @@
 #include <string.h>
 #include <ctype.h>
 
+#include "debug.h"
+
 #define  RLEN     1024
 
 extern int humantoss;
 extern int WMIN;
 extern int WMAX;
 
-unsigned char *toss(int count);
+unsigned char *toss(int count, int dicenum);
 int rand_lim(int limit);
-int get_dicenum(int *digits);
 
 #endif
