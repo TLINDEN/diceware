@@ -182,6 +182,13 @@ The program only uses words which contain 7bit \s-1ASCII\s0 letters
 <https://xkcd.com/936/>.
 .SH "BUGS"
 .IX Header "BUGS"
+.IP "\(bu" 4
+Program rolled dices are using a pseudo random device, thanks
+to some yet unknown reason the digits of dice rolls are unevenly
+distributed, in fact there are 20% as much 1s as other digits.
+.Sp
+Use the option b<\-t> with physical dices to mitigate this.
+.PP
 In order to report a bug, unexpected behavior, feature requests
 or to submit a patch, please open an issue on github:
 <https://github.com/TLINDEN/diceware/issues>.

@@ -46,6 +46,18 @@ L<https://xkcd.com/936/>.
 
 =head1 BUGS
 
+=over
+
+=item *
+
+Program rolled dices are using a pseudo random device, thanks
+to some yet unknown reason the digits of dice rolls are unevenly
+distributed, in fact there are 20% as much 1s as other digits.
+
+Use the option b<-t> with physical dices to mitigate this.
+
+=back
+
 In order to report a bug, unexpected behavior, feature requests
 or to submit a patch, please open an issue on github:
 L<https://github.com/TLINDEN/diceware/issues>.
