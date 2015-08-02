@@ -26,6 +26,7 @@ int *incr_dicedigit(int *digits) {
     increment an array of dice digits, we expect the first to
     be a multiple of 10000, the 2nd a multiple of 1000 and so on.
   */
+
   if(digits[4] == 6) {
     digits[4] = 1;
     if(digits[3] == 60) {
@@ -87,7 +88,7 @@ char **fetch_dict(char *dictfile) {
   }
 
   words = malloc(66666 * sizeof(char *));
-  digits = malloc(5);
+  digits = malloc(5 * sizeof(int));
   jump = rand_lim(32);
   
   digits[0] = 10000;
@@ -126,12 +127,12 @@ char **fetch_dict(char *dictfile) {
 	next = 0;
 	continue;
       }
-      
+
       words[pos] = malloc(linelen);
       strncpy( words[pos], line, linelen);
       if(verbose > 1)
 	debug("add to wordlist at index %d: %s", pos, line);
-      
+
       digits = incr_dicedigit(digits);
       pos = get_dicenum(digits);
 
