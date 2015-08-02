@@ -18,15 +18,17 @@
 #
 #    You can contact me by mail: <tom AT vondein DOT org>.
 
-CFLAGS = -Wall -Wextra -Werror -O1 -g
-LDFLAGS=
-OBJS   = dicepwgen.o dictfile.o tossing.o
-DST    = dicepwgen
-PREFIX = /usr/local
-UID    = root
-GID    = 0
-MAN    = dicepwgen.1
-POD    = dicepwgen.pod
+CFLAGS   = -Wall -Wextra -Werror -O1 -g
+LDFLAGS  =
+OBJS     = dicepwgen.o dictfile.o tossing.o debug.o
+DST      = dicepwgen
+PREFIX   = /usr/local
+UID      = root
+GID      = 0
+MAN      = dicepwgen.1
+POD      = dicepwgen.pod
+DICTFILE = /usr/share/dict/american-english
+
 
 all: $(DST)
 
@@ -34,7 +36,7 @@ $(DST): $(OBJS)
 	gcc $(OBJS) -o $(DST)
 
 %.o: %.c
-	gcc -c $(CFLAGS) $*.c -o $*.o
+	gcc -c $(CFLAGS) -DDICTFILE=$(DICTFILE) $*.c -o $*.o
 
 clean:
 	rm -f *.o $(DST)

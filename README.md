@@ -29,6 +29,12 @@ compile the source code:
     cd diceware
     make
 
+Although dicepwgen has an option to specify a dictionary file
+on the commandline, there's also a built-in default. This default
+can be modified during compilation, e.g.:
+
+    make DICTFILE=/usr/local/share/dict/german.txt
+
 To install, type this command:
 
     sudo make install
@@ -42,16 +48,21 @@ modify `$PREFIX` during installation time like this:
 
 ## Usage
 
-```
-Usage: dice [-tcfvh]
-Options: 
--t               Asks interactively for tossed dices
--c <count>       Number of words (default: 4)
--f <dictfile>    Dictionary file to use (default:
-                 /usr/share/dict/american-english)
--v               Print program version
--h               Print this help screen
-```
+    Usage: dice [-tcfvhd]
+    Options: 
+    -t --humantoss            Asks interactively for rolled dices
+    -c --wordcount <count>    Number of words (default: 4)
+    -f --dictfile <dictfile>  Dictionary file to use (default:
+                              /usr/share/dict/american-english)
+    -l --minlen <count>       Minimum word len (default: 5)
+    -m --maxlen <count>       Maximum word len (default: 10)
+    -d --debug                Enable debug output
+    -v --version              Print program version
+    -h -? --help              Print this help screen
+
+If you want to generate a truly random diceware password, use
+the option -t. In that case you have to roll physical dices and
+enter the results (dicepwgen will ask you for them).
 
 ## Getting help
 
