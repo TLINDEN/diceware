@@ -22,6 +22,8 @@
 #ifndef HAVE_TOSSING_H
 #define  HAVE_TOSSING_H
 
+#define _WITH_GETLINE
+
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>

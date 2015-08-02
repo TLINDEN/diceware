@@ -33,7 +33,7 @@ DICTFILE = /usr/share/dict/american-english
 all: $(DST)
 
 $(DST): $(OBJS)
-	gcc $(OBJS) -o $(DST)
+	gcc -DDICTFILE=$(DICTFILE) $(OBJS) -o $(DST)
 
 %.o: %.c
 	gcc -c $(CFLAGS) -DDICTFILE=$(DICTFILE) $*.c -o $*.o

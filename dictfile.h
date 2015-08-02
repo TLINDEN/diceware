@@ -22,6 +22,8 @@
 #ifndef HAVE_DICTFILE_H
 #define  HAVE_DICTFILE_H
 
+#define _WITH_GETLINE
+
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
