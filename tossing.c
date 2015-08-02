@@ -89,11 +89,12 @@ unsigned char *toss(int count, int dicenum) {
     for(i=0; i<RLEN; i++) {
       onedice = rand[i];
       onedice &= 7; /* only use the last 3 bits, 0-7 */
-      onedice %= 6; /* 6 is the max */
       if(onedice >= 1 && onedice <= 6) {
 	tosses[pos] = onedice;
 	pos++;
       }
+      else
+	continue;
       if(pos == count)
 	break;
     }
