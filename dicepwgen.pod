@@ -4,23 +4,25 @@ dicepwgen - A diceware password generator
 
 =head1 SYNOPSIS
 
- Usage: dice [-cfvh]
- Options: 
- -t --humantoss            Asks interactively for tossed dices
- -c --wordcount <count>    Number of words (default: 4)
- -f --dictfile <dictfile>  Dictionary file to use (default:
-                           /usr/share/dict/american-english)
- -l --minlen <count>       Minimum word len (default: 5)
- -m --maxlen <count>       Maximum word len (default: 10)
- -v --version              Print program version
- -h -? --help              Print this help screen
+    Usage: dice [-tcfvhd]
+    Options:
+    -t --humantoss            Asks interactively for rolled dices
+    -c --wordcount <count>    Number of words (default: 4)
+    -f --dictfile <dictfile>  Dictionary file to use (default:
+                              /usr/share/dict/american-english)
+    -l --minlen <count>       Minimum word len (default: 5)
+    -m --maxlen <count>       Maximum word len (default: 10)
+    -d --debug                Enable debug output
+    -v --version              Print program version
+    -h -? --help              Print this help screen
 
 =head1 DESCRIPTION
 
 dicepwgen generates a diceware password using a dictionary
 file. By default it uses pseudo random dice tosses, but
 it is also possible to use real dices and enter the numbers
-by using the option B<-t>.
+by using the option B<-t>, which is the most secure way
+to generate diceware passwords.
 
 The option B<-c> can be used to tweak the number of words
 to output. The options B<-l> and B<-m> can be used to tweak
