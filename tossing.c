@@ -43,7 +43,7 @@ unsigned char *toss(int count, int dicenum) {
     digit[1] = '\0';
    
   RETRY:
-    fprintf(stdout, "dice %d - enter 5 digits, each between 1-6: ", dicenum+1);
+    fprintf(stdout, "dice roll %d - enter 5 digits, each between 1-6: ", dicenum+1);
     linelen = getline(&line, &len, stdin);
     tosses = malloc((size_t)count);
     
