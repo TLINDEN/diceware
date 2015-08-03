@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "DICEPWGEN 1"
-.TH DICEPWGEN 1 "2015-08-02" "perl v5.18.2" "User Contributed Perl Documentation"
+.TH DICEPWGEN 1 "2015-08-03" "perl v5.18.2" "User Contributed Perl Documentation"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -142,7 +142,7 @@
 dicepwgen \- A diceware password generator
 .SH "SYNOPSIS"
 .IX Header "SYNOPSIS"
-.Vb 11
+.Vb 10
 \&    Usage: dice [\-tcfvhd]
 \&    Options:
 \&    \-t \-\-humantoss            Asks interactively for rolled dices
@@ -151,6 +151,8 @@ dicepwgen \- A diceware password generator
 \&                              /usr/share/dict/american\-english)
 \&    \-l \-\-minlen <count>       Minimum word len (default: 5)
 \&    \-m \-\-maxlen <count>       Maximum word len (default: 10)
+\&    \-n \-\-dontjump             Use all words in the dict file, e.g.
+\&                              if it is an original diceware list
 \&    \-d \-\-debug                Enable debug output
 \&    \-v \-\-version              Print program version
 \&    \-h \-? \-\-help              Print this help screen
@@ -170,11 +172,35 @@ minimum and maximum word length.
 You can tell dicepwgen to use another dictionary file with
 the option \fB\-f\fR.
 .PP
+If you're using a precomputed diceware list, use the parameter
+\&\fB\-n\fR, in which case dicepwgen will use all entries in the file.
+.PP
 The program only uses words which contain 7bit \s-1ASCII\s0 letters
-(a\-zA-Z), which are easier for password usage anyway.
+(a\-zA\-Z0\-9), which are easier for password usage anyway.
 .SH "FILES"
 .IX Header "FILES"
 \&\fB/usr/share/dict/american\-english\fR: default dictionary file.
+.PP
+You can use almost any dictionary file you want. Dicepwgen expects
+the file to be in the following format: one word per line.
+.PP
+You can also use precomputed diceware word lists by adding the
+option \fB\-n\fR to the commandline. If the file already contains
+numbers, you have to remove them before using. Say, the file
+looks like this:
+.PP
+.Vb 4
+\& 11126   abase
+\& 11131   abash
+\& 11132   abate
+\& 11133   abbas
+.Ve
+.PP
+Prepare the file with this shell oneliner:
+.PP
+.Vb 1
+\& grep "^[0\-9]" dicewarelist.txt | awk \*(Aq{print $2}\*(Aq >> newlist.txt
+.Ve
 .SH "SEE ALSO"
 .IX Header "SEE ALSO"
 <http://world.std.com/~reinhold/diceware.html>
@@ -185,6 +211,15 @@ The program only uses words which contain 7bit \s-1ASCII\s0 letters
 In order to report a bug, unexpected behavior, feature requests
 or to submit a patch, please open an issue on github:
 <https://github.com/TLINDEN/diceware/issues>.
+.PP
+Current known issues:
+.IP "\(bu" 4
+The program does not count the lines in a dictionary file before
+using it. If the file contains a low number of entries (e.g. because
+it is a precomputed diceware word list and \fB\-n\fR has not been
+specified), it seems to \*(L"hang\*(R". In fact it runs very long because it
+jumps over a random number of entries and restarts from the beginning
+again and again til the required number of words has been collected (7776).
 .SH "LICENSE"
 .IX Header "LICENSE"
 This software is licensed under the \s-1GNU GENERAL PUBLIC LICENSE\s0 version 3.

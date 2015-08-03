@@ -106,18 +106,20 @@ char **fetch_dict(char *dictfile) {
   
  LOOP:
   while ((linelen = getline(&line, &len, DICT)) != -1) {
-    if(jump > 0) {
-      jump--;
-      continue;
-    }
-    else {
-      jump = rand_lim(32);
+    if(! dontjump) {
+      if(jump > 0) {
+	jump--;
+	continue;
+      }
+      else {
+	jump = rand_lim(32);
+      }
     }
     if(linelen >= WMIN+1 && linelen <= WMAX+1) {
       line[linelen-1] = '\0'; /* remove newline */
 
       for(i=0; i<linelen-1; i++) {
-	if(isalpha((int)line[i]) == 0) {
+	if(isalnum((int)line[i]) == 0) {
 	  next = 1;
 	  break;
 	}

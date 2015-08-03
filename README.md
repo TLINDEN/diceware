@@ -56,6 +56,8 @@ modify `$PREFIX` during installation time like this:
                               /usr/share/dict/american-english)
     -l --minlen <count>       Minimum word len (default: 5)
     -m --maxlen <count>       Maximum word len (default: 10)
+    -n --dontjump             Use all words in the dict file, e.g.
+                              if it is an original diceware list   
     -d --debug                Enable debug output
     -v --version              Print program version
     -h -? --help              Print this help screen

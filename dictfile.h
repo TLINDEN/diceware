@@ -36,6 +36,7 @@
 
 extern int WMIN;
 extern int WMAX;
+extern int dontjump;
 
 int *incr_dicedigit(int *digits);
 int get_dicenum(int *digits);

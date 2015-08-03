@@ -42,6 +42,7 @@
 
 int humantoss;
 int verbose;
+int dontjump;
 int WMIN;
 int WMAX;
 

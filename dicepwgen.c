@@ -32,6 +32,8 @@ int usage() {
 	  "                          /usr/share/dict/american-english)\n"
 	  "-l --minlen <count>       Minimum word len (default: 5)\n"
 	  "-m --maxlen <count>       Maximum word len (default: 10)\n"
+	  "-n --dontjump             Use all words in the dict file, e.g.\n"
+	  "                          if it is an original diceware list\n"
 	  "-d --debug                Enable debug output\n"
 	  "-v --version              Print program version\n"
 	  "-h -? --help              Print this help screen\n"
@@ -46,8 +48,7 @@ int main (int argc, char **argv)  {
 
   WMIN = 6;
   WMAX = 10;
-  humantoss = 0;
-  verbose = 0;
+  humantoss = verbose = dontjump = 0;
   
   static struct option longopts[] = {
     { "wordcount", required_argument, NULL,           'c' },
@@ -55,12 +56,13 @@ int main (int argc, char **argv)  {
     { "maxlen",    required_argument, NULL,           'm' },
     { "humantoss", required_argument, NULL,           't' },    
     { "dictfile",  required_argument, NULL,           'f' },
+    { "dontjump",  no_argument,       NULL,           'n' },   
     { "version",   no_argument,       NULL,           'v' },
     { "help",      no_argument,       NULL,           'h' },
     { "debug",     no_argument,       NULL,           'd' },
   };
 
-   while ((opt = getopt_long(argc, argv, "l:m:tf:c:vh?d", longopts, NULL)) != -1) {
+   while ((opt = getopt_long(argc, argv, "l:m:tf:c:vh?dn", longopts, NULL)) != -1) {
      switch (opt) {
      case 'v':
        fprintf(stderr, "This is %s version %s\n", argv[0], VERSION);
@@ -85,6 +87,9 @@ int main (int argc, char **argv)  {
      case 'd':
        verbose++;
        break;
+     case 'n':
+       dontjump = 1;
+       break;
      case 'f':
        dictfile = malloc(strlen(optarg));
        strncpy(dictfile, optarg, strlen(optarg));
@@ -99,6 +104,11 @@ int main (int argc, char **argv)  {
      dictfile =  STRINGIZE_VALUE_OF(DICTFILE);
    }
 
+   if(dontjump) {
+     WMIN = 0;
+     WMAX = 128;
+   }
+   
    debug("     using dictfile: %s", dictfile);
    debug("minimum word length: %d", WMIN);
    debug("maximum word length: %d", WMAX);
