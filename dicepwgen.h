@@ -1,7 +1,7 @@
 /*
  *    This file is part of dicepwgen
  *
- *    Copyright (C) 2015 T.v.Dein.
+ *    Copyright (C) 2015-2016 T.v.Dein.
  *
  *    This program is free software: you can redistribute it and/or modify
  *    it under the terms of the GNU General Public License as published by
@@ -37,12 +37,13 @@
 #define STRINGIZE(x) #x
 #define STRINGIZE_VALUE_OF(x) STRINGIZE(x)
 
-#define  VERSION  "1.0"
+#define  VERSION  "1.1"
 #define  RLEN     1024
 
 int humantoss;
 int verbose;
 int dontjump;
+int symbols;
 int WMIN;
 int WMAX;
 

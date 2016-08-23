@@ -1,7 +1,7 @@
 /*
  *    This file is part of dicepwgen
  *
- *    Copyright (C) 2015 T.v.Dein.
+ *    Copyright (C) 2015-2016 T.v.Dein.
  *
  *    This program is free software: you can redistribute it and/or modify
  *    it under the terms of the GNU General Public License as published by
@@ -23,21 +23,22 @@
 
 int usage() {
   fprintf(stderr,
-	  "Generate a random diceware passphrase\n"
-	  "Usage: dice [-tcfvhd]\n"
-	  "Options: \n"
-	  "-t --humantoss            Asks interactively for rolled dices\n"
-	  "-c --wordcount <count>    Number of words (default: 4)\n"
-	  "-f --dictfile <dictfile>  Dictionary file to use (default:\n"
-	  "                          /usr/share/dict/american-english)\n"
-	  "-l --minlen <count>       Minimum word len (default: 5)\n"
-	  "-m --maxlen <count>       Maximum word len (default: 10)\n"
-	  "-n --dontjump             Use all words in the dict file, e.g.\n"
-	  "                          if it is an original diceware list\n"
-	  "-d --debug                Enable debug output\n"
-	  "-v --version              Print program version\n"
-	  "-h -? --help              Print this help screen\n"
-	  );
+          "Generate a random diceware passphrase\n"
+          "Usage: dice [-tcfvhd]\n"
+          "Options: \n"
+          "-t --humantoss            Asks interactively for rolled dices\n"
+          "-c --wordcount <count>    Number of words (default: 4)\n"
+          "-f --dictfile <dictfile>  Dictionary file to use (default:\n"
+          "                          /usr/share/dict/american-english)\n"
+          "-l --minlen <count>       Minimum word len (default: 5)\n"
+          "-m --maxlen <count>       Maximum word len (default: 10)\n"
+          "-n --dontjump             Use all words in the dict file, e.g.\n"
+          "                          if it is an original diceware list\n"
+          "-y --symbols              Replace space with -, add non-letters\n"
+          "-d --debug                Enable debug output\n"
+          "-v --version              Print program version\n"
+          "-h -? --help              Print this help screen\n"
+          );
   return 1;
 }
 
@@ -48,7 +49,7 @@ int main (int argc, char **argv)  {
 
   WMIN = 6;
   WMAX = 10;
-  humantoss = verbose = dontjump = 0;
+  humantoss = verbose = dontjump = symbols = 0;
   
   static struct option longopts[] = {
     { "wordcount", required_argument, NULL,           'c' },
@@ -56,13 +57,14 @@ int main (int argc, char **argv)  {
     { "maxlen",    required_argument, NULL,           'm' },
     { "humantoss", required_argument, NULL,           't' },    
     { "dictfile",  required_argument, NULL,           'f' },
-    { "dontjump",  no_argument,       NULL,           'n' },   
+    { "dontjump",  no_argument,       NULL,           'n' },
+    { "symbols",   no_argument,       NULL,           'y' },
     { "version",   no_argument,       NULL,           'v' },
     { "help",      no_argument,       NULL,           'h' },
     { "debug",     no_argument,       NULL,           'd' },
   };
 
-   while ((opt = getopt_long(argc, argv, "l:m:tf:c:vh?dn", longopts, NULL)) != -1) {
+   while ((opt = getopt_long(argc, argv, "l:m:tf:c:vh?dny", longopts, NULL)) != -1) {
      switch (opt) {
      case 'v':
        fprintf(stderr, "This is %s version %s\n", argv[0], VERSION);
@@ -83,6 +85,9 @@ int main (int argc, char **argv)  {
        break;
      case 't':
        humantoss = 1;
+       break;
+     case 'y':
+       symbols = 1;
        break;
      case 'd':
        verbose++;
@@ -130,6 +135,7 @@ void getwords(char *dictfile, int count) {
   char **words;
   int i, pos, one, two, three, four, five;
   int *tossed;
+  char sep = ' ';
   unsigned char *tosses;
   
   words = fetch_dict(dictfile);
@@ -152,10 +158,17 @@ void getwords(char *dictfile, int count) {
     free(tosses);
   }
 
-  for(i=0; i<count; i++) {
-    fprintf(stdout, "%s ", words[tossed[i]]);
+  if(symbols)
+    sep = '-';
+  
+  for(i=0; i<count-1; i++) {
+    fprintf(stdout, "%s%c", words[tossed[i]], sep);
   }
+  fprintf(stdout, "%s", words[tossed[count-1]]);
 
+  if(symbols)
+    fprintf(stdout, "%%8");
+  
   fprintf(stdout, "\n");
   
   free(tossed);

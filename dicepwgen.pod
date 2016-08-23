@@ -14,6 +14,7 @@ dicepwgen - A diceware password generator
     -m --maxlen <count>       Maximum word len (default: 10)
     -n --dontjump             Use all words in the dict file, e.g.
                               if it is an original diceware list
+    -y --symbols              Replace space with -, add non-letters
     -d --debug                Enable debug output
     -v --version              Print program version
     -h -? --help              Print this help screen
@@ -37,7 +38,11 @@ If you're using a precomputed diceware list, use the parameter
 B<-n>, in which case dicepwgen will use all entries in the file.
 
 The program only uses words which contain 7bit ASCII letters
-(a-zA-Z0-9), which are easier for password usage anyway.
+(a-zA-Z0-9), which are easier for password usage anyway. However,
+some sites have so called "password policies" applied and do
+not support whitespaces and/or require special symbols to be
+part of the password. Use -y in such cases which uses - as
+word separator and adds %8 to the end of the password.
 
 =head1 FILES
 
@@ -91,7 +96,7 @@ again and again til the required number of words has been collected (7776).
 
 This software is licensed under the GNU GENERAL PUBLIC LICENSE version 3.
 
-Copyright (c) 2015 by T. v. Dein.
+Copyright (c) 2015-2016 by T. v. Dein.
 
 =head1 AUTHORS
 
