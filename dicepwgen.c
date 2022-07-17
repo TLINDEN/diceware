@@ -42,6 +42,9 @@ int usage() {
   return 1;
 }
 
+int WMIN, WMAX, humantoss, verbose, dontjump, symbols;
+
+
 int main (int argc, char **argv)  {
   int count = 4;
   char *dictfile = NULL;

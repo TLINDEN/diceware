@@ -37,15 +37,15 @@
 #define STRINGIZE(x) #x
 #define STRINGIZE_VALUE_OF(x) STRINGIZE(x)
 
-#define  VERSION  "1.1"
+#define  VERSION  "1.2"
 #define  RLEN     1024
 
-int humantoss;
-int verbose;
-int dontjump;
-int symbols;
-int WMIN;
-int WMAX;
+extern int humantoss;
+extern int verbose;
+extern int dontjump;
+extern int symbols;
+extern int WMIN;
+extern int WMAX;
 
 int usage();
 int main (int argc, char **argv);
