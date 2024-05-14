@@ -37,7 +37,7 @@
 #define STRINGIZE(x) #x
 #define STRINGIZE_VALUE_OF(x) STRINGIZE(x)
 
-#define  VERSION  "1.2"
+#define  VERSION  "1.2.0"
 #define  RLEN     1024
 
 extern int humantoss;
