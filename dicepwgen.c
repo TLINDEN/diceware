@@ -37,15 +37,13 @@ int usage() {
           "-y --symbols              Replace space with -, add non-letters\n"
           "-d --debug                Enable debug output\n"
           "-v --version              Print program version\n"
-          "-h -? --help              Print this help screen\n"
-          );
+          "-h -? --help              Print this help screen\n");
   return 1;
 }
 
 int WMIN, WMAX, humantoss, verbose, dontjump, symbols;
 
-
-int main (int argc, char **argv)  {
+int main(int argc, char **argv) {
   int count = 4;
   char *dictfile = NULL;
   int opt;
@@ -53,81 +51,82 @@ int main (int argc, char **argv)  {
   WMIN = 6;
   WMAX = 10;
   humantoss = verbose = dontjump = symbols = 0;
-  
+
   static struct option longopts[] = {
-    { "wordcount", required_argument, NULL,           'c' },
-    { "minlen",    required_argument, NULL,           'l' },
-    { "maxlen",    required_argument, NULL,           'm' },
-    { "humantoss", required_argument, NULL,           't' },    
-    { "dictfile",  required_argument, NULL,           'f' },
-    { "dontjump",  no_argument,       NULL,           'n' },
-    { "symbols",   no_argument,       NULL,           'y' },
-    { "version",   no_argument,       NULL,           'v' },
-    { "help",      no_argument,       NULL,           'h' },
-    { "debug",     no_argument,       NULL,           'd' },
+      {"wordcount", required_argument, NULL, 'c'},
+      {"minlen", required_argument, NULL, 'l'},
+      {"maxlen", required_argument, NULL, 'm'},
+      {"humantoss", required_argument, NULL, 't'},
+      {"dictfile", required_argument, NULL, 'f'},
+      {"dontjump", no_argument, NULL, 'n'},
+      {"symbols", no_argument, NULL, 'y'},
+      {"version", no_argument, NULL, 'v'},
+      {"help", no_argument, NULL, 'h'},
+      {"debug", no_argument, NULL, 'd'},
   };
 
-   while ((opt = getopt_long(argc, argv, "l:m:tf:c:vh?dny", longopts, NULL)) != -1) {
-     switch (opt) {
-     case 'v':
-       fprintf(stderr, "This is %s version %s\n", argv[0], VERSION);
-       return 1;
-       break;
-     case 'h':
-     case '?':
-       return usage();
-       break;
-     case 'c':
-       count = atoi(optarg);
-       break;
-     case 'l':
-       WMIN = atoi(optarg);
-       break;
-     case 'm':
-       WMAX = atoi(optarg);
-       break;
-     case 't':
-       humantoss = 1;
-       break;
-     case 'y':
-       symbols = 1;
-       break;
-     case 'd':
-       verbose++;
-       break;
-     case 'n':
-       dontjump = 1;
-       break;
-     case 'f':
-       dictfile = malloc(strlen(optarg));
-       strncpy(dictfile, optarg, strlen(optarg));
-       break;
-     default:
+  while ((opt = getopt_long(argc, argv, "l:m:tf:c:vh?dny", longopts, NULL)) !=
+         -1) {
+    switch (opt) {
+    case 'v':
+      fprintf(stderr, "This is %s version %s\n", argv[0], VERSION);
+      return 1;
+      break;
+    case 'h':
+    case '?':
       return usage();
       break;
-     }
-   }
+    case 'c':
+      count = atoi(optarg);
+      break;
+    case 'l':
+      WMIN = atoi(optarg);
+      break;
+    case 'm':
+      WMAX = atoi(optarg);
+      break;
+    case 't':
+      humantoss = 1;
+      break;
+    case 'y':
+      symbols = 1;
+      break;
+    case 'd':
+      verbose++;
+      break;
+    case 'n':
+      dontjump = 1;
+      break;
+    case 'f':
+      dictfile = malloc(strlen(optarg));
+      strncpy(dictfile, optarg, strlen(optarg));
+      break;
+    default:
+      return usage();
+      break;
+    }
+  }
 
-   if(dictfile == NULL) {
-     dictfile =  STRINGIZE_VALUE_OF(DICTFILE);
-   }
+  if (dictfile == NULL) {
+    dictfile = STRINGIZE_VALUE_OF(DICTFILE);
+  }
 
-   if(dontjump) {
-     WMIN = 0;
-     WMAX = 128;
-   }
-   
-   debug("     using dictfile: %s", dictfile);
-   debug("minimum word length: %d", WMIN);
-   debug("maximum word length: %d", WMAX);
-   if(humantoss)
-     debug("user rolls dices");
-   else
-     debug("program rolls dices");
-   
-   getwords(dictfile, count);
+  if (dontjump) {
+    WMIN = 0;
+    WMAX = 128;
+  }
 
-   return 0;
+  debug("     using dictfile: %s", dictfile);
+  debug("minimum word length: %d", WMIN);
+  debug("maximum word length: %d", WMAX);
+  if (humantoss)
+    debug("user rolls dices");
+  else
+    debug("program rolls dices");
+
+  getwords(dictfile, count);
+
+  return 0;
 }
 
 void getwords(char *dictfile, int count) {
@@ -140,20 +139,20 @@ void getwords(char *dictfile, int count) {
   int *tossed;
   char sep = ' ';
   unsigned char *tosses;
-  
+
   words = fetch_dict(dictfile);
 
   tossed = malloc(count * sizeof(int));
-  
-  for(i=0; i<count; i++) {
+
+  for (i = 0; i < count; i++) {
     tosses = toss(5, i);
 
-    one    = tosses[0] * 10000;
-    two    = tosses[1] *  1000;
-    three  = tosses[2] *   100;
-    four   = tosses[3] *    10;
-    five   = tosses[4];
-    
+    one = tosses[0] * 10000;
+    two = tosses[1] * 1000;
+    three = tosses[2] * 100;
+    four = tosses[3] * 10;
+    five = tosses[4];
+
     pos = one + two + three + four + five;
 
     tossed[i] = pos;
@@ -161,23 +160,23 @@ void getwords(char *dictfile, int count) {
     free(tosses);
   }
 
-  if(symbols)
+  if (symbols)
     sep = '-';
-  
-  for(i=0; i<count-1; i++) {
+
+  for (i = 0; i < count - 1; i++) {
     fprintf(stdout, "%s%c", words[tossed[i]], sep);
   }
-  fprintf(stdout, "%s", words[tossed[count-1]]);
+  fprintf(stdout, "%s", words[tossed[count - 1]]);
 
-  if(symbols)
+  if (symbols)
     fprintf(stdout, "%%8");
-  
+
   fprintf(stdout, "\n");
-  
+
   free(tossed);
 
-  for(i=0; i<6666; i++)
-    if(words[i] != NULL)
+  for (i = 0; i < 66666; i++)
+    if (words[i] != NULL)
       free(words[i]);
 
   free(words);
