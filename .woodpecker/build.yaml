@@ -23,6 +23,7 @@ steps:
       # check if we really get a password
       - ./dicepwgen -y | grep -E '[a-z]*%'
       # check a custom dict file and if we get 6 words when requested
-      - test 6 -eq $(./dicepwgen -f contrib/american-english-insane -c 6 | sed 's/[a-zA-Z]//g' | wc -c)
+      - test 6 -eq $(./dicepwgen -f contrib/american-english-insane -c 6 | tee log | sed 's/[a-zA-Z]//g' | wc -c)
+      - cat log
 
 
