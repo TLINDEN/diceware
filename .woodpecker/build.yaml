@@ -11,6 +11,7 @@ steps:
       event: [push]
     image: alpine:latest
     commands:
-      - apk add --no-cache make bash binutils gcc
+      - apk update
+      - apk add --no-cache bash build-base
       - make
 
