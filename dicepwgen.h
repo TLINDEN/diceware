@@ -20,25 +20,26 @@
  */
 
 #ifndef HAVE_DICE_H
-#define  HAVE_DICE_H
+#define HAVE_DICE_H
 
-#include <stdio.h>
-#include <unistd.h>
-#include <getopt.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include <string.h>
 #include <ctype.h>
+#include <getopt.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
 
+#include "debug.h"
 #include "dictfile.h"
 #include "tossing.h"
-#include "debug.h"
 
 #define STRINGIZE(x) #x
 #define STRINGIZE_VALUE_OF(x) STRINGIZE(x)
 
-#define  VERSION  "1.2.0"
-#define  RLEN     1024
+// #define VERSION "1.3.0"
+#define RLEN 1024
+static const char VERSION[] = "1.3.0";
 
 extern int humantoss;
 extern int verbose;
@@ -48,7 +49,7 @@ extern int WMIN;
 extern int WMAX;
 
 int usage();
-int main (int argc, char **argv);
+int main(int argc, char **argv);
 void getwords(char *dictfile, int count);
 
 #endif
