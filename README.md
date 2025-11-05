@@ -1,6 +1,14 @@
+[![status-badge](https://ci.codeberg.org/api/badges/15537/status.svg)](https://ci.codeberg.org/repos/15537)
+[![License](https://img.shields.io/badge/license-GPL-blue.svg)](https://codeberg.org/scip/diceware/raw/branch/master/LICENSE)
+[![Documentation](https://img.shields.io/badge/manpage-documentation-blue)](https://codeberg.org/scip/diceware/raw/branch/main/dicepwgen.pod)
+
 ## dicepwgen - A diceware password generator
 
-This is the README file for the password generator dicepwgen.
+`dicepwgen` generates a [diceware password](https://de.wikipedia.org/wiki/Diceware)
+using a dictionary file. By default it uses pseudo random dice tosses,
+but it is also possible to use real dices and enter the numbers by using
+the option `-t`, which is the most secure way to generate diceware passwords.
+
 
 ## Documentation
 
