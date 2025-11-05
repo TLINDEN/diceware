@@ -2,6 +2,9 @@
 [![License](https://img.shields.io/badge/license-GPL-blue.svg)](https://codeberg.org/scip/diceware/raw/branch/master/LICENSE)
 [![Documentation](https://img.shields.io/badge/manpage-documentation-blue)](https://codeberg.org/scip/diceware/raw/branch/main/dicepwgen.pod)
 
+> [!IMPORTANT]
+> This software is now being maintained on [Codeberg](https://codeberg.org/scip/diceware/).
+
 ## dicepwgen - A diceware password generator
 
 `dicepwgen` generates a [diceware password](https://de.wikipedia.org/wiki/Diceware)
