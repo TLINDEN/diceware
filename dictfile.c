@@ -96,7 +96,7 @@ char **fetch_dict(char *dictfile) {
   pos = 11111;
   next = 0;
 
-  for (i = 0; i < 6666; i++)
+  for (i = 0; i < 66667; i++)
     words[i] = NULL;
 
 LOOP:
