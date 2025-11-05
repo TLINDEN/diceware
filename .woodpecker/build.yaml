@@ -12,7 +12,7 @@ steps:
     image: alpine:latest
     commands:
       - apk update
-      - apk add --no-cache bash build-base words-en
+      - apk add --no-cache bash build-base words-en gdb
       - make
       - gdb -batch -ex "run" -ex "bt" --args dicepwgen
       #- ./dicepwgen -y | grep -E '[a-z]*%'
