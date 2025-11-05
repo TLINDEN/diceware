@@ -175,7 +175,7 @@ void getwords(char *dictfile, int count) {
 
   free(tossed);
 
-  for (i = 0; i < 66666; i++)
+  for (i = 0; i < 66667; i++)
     if (words[i] != NULL)
       free(words[i]);
 }
