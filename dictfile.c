@@ -83,7 +83,7 @@ char **fetch_dict(char *dictfile) {
     exit(1);
   }
 
-  words = malloc(66666 * sizeof(char *));
+  words = malloc(66667 * sizeof(char *));
   digits = malloc(5 * sizeof(int));
   jump = rand_lim(32);
 
