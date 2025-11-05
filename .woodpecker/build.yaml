@@ -14,7 +14,7 @@ steps:
       - apk update
       - apk add --no-cache bash build-base words-en gdb valgrind
       - make
-      - valgrind --leak-check=full --show-reachable=yes ./dicepwgen
+      - valgrind --leak-check=full --show-reachable=yes ./dicepwgen -d -d
       #- gdb -batch -ex "run" -ex "bt" --args dicepwgen
       #- ./dicepwgen -y | grep -E '[a-z]*%'
 
