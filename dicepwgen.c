@@ -178,8 +178,4 @@ void getwords(char *dictfile, int count) {
   for (i = 0; i < 66666; i++)
     if (words[i] != NULL)
       free(words[i]);
-
-  if (words != NULL) {
-    free(words);
-  }
 }
