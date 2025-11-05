@@ -6,12 +6,14 @@ labels:
   platform: ${platform}
     
 steps:
-  build:
+  build-n-test:
     when:
       event: [push]
     image: alpine:latest
     commands:
       - apk update
-      - apk add --no-cache bash build-base
+      - apk add --no-cache abash build-base words-en
       - make
+      - ./dicepwgen -y | grep -E '[a-z]*%'
+
 
